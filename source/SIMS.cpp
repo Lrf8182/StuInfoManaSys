@@ -2,6 +2,7 @@
 #include<string>
 #include<iostream>
 
+
 SIMS::SIMS(int n) :listSize(n)
 {
     headNode = new stuNode;
@@ -88,6 +89,18 @@ void SIMS::erase(int theIndex)
     }
     delete currentNode;
     listSize--;
+}
+
+int SIMS::search(int ID)
+{
+    stuNode* currentNode = headNode->next;
+    for (int theIndex = 0; theIndex < listSize; theIndex++) {
+        if (currentNode->student.id == ID) {
+            return theIndex;
+        }
+        currentNode = currentNode->next;
+    }
+    return -1;
 }
 
 std::ostream& operator<<(std::ostream& out, const SIMS& theSIMS)

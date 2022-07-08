@@ -26,6 +26,8 @@ public:
     void push_back(const STU& theStudent);
     void erase();
     void erase(const int theIndex);
+    int search(int ID);
+    
 private:
     stuNode* headNode;
     int listSize;
