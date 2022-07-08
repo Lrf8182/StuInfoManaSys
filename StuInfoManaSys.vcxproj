@@ -148,11 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\.main.cpp" />
+    <ClCompile Include="source\ConsoleSetting.cpp" />
     <ClCompile Include="source\SIMS.cpp" />
     <ClCompile Include="source\Welcome.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Color.h" />
+    <ClInclude Include="header\ConsoleSetting.h" />
     <ClInclude Include="header\SIMS.h" />
     <ClInclude Include="header\StuNode.h" />
     <ClInclude Include="header\Welcome.h" />
