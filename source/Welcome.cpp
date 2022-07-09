@@ -117,19 +117,19 @@ void option(int op)
     }
     case 5:
     {
-       // int min, max;
-       // colorprint("Please enter the minimum and maximum scores as the score range.");
-        //std::cout << std::endl;
-        //std::cin >> min >> max;
-        //if (min > max) {
-           // colorprint("Input error! Please enter again.");
-            //colorprint("Press enter to continue.\n");
-            //std::cin.get();
-            //std::cin >> min >> max;
-            //std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-        //}
+        // int min, max;
+        // colorprint("Please enter the minimum and maximum scores as the score range.");
+         //std::cout << std::endl;
+         //std::cin >> min >> max;
+         //if (min > max) {
+            // colorprint("Input error! Please enter again.");
+             //colorprint("Press enter to continue.\n");
+             //std::cin.get();
+             //std::cin >> min >> max;
+             //std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+         //}
         stuInfo.scoreranking();
-        
+
         //stuInfo.show(min, max);
         //colorprint("Press enter to continue.\n");
         //std::cin.get();

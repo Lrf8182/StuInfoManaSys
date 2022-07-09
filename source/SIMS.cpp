@@ -16,13 +16,10 @@ SIMS::~SIMS()
     }
 }
 
-
 int SIMS::size()
 {
     return listSize;
 }
-
-
 
 bool SIMS::empty() const
 {
@@ -91,7 +88,6 @@ void SIMS::push_back(const STU& theStudent)
     listSize++;
 }
 
-
 void SIMS::erase(int theIndex)
 {
     stuNode* currentNode = headNode;
@@ -120,18 +116,61 @@ int SIMS::searchID(int ID)
     return -1;
 }
 
+void SIMS::swap(stuNode* nodeA, stuNode* nodeB)
+{
+    // stuNode* nodeA = headNode->next;
+    int t = indexOf(nodeA->student);
+    if (t + 2 < listSize) {
+        insert(t + 2, nodeA->student);
+    } else {
+        insert(listSize, nodeA->student);
+    }
+    erase(t);
+}
+
+//void SIMS::swap(stuNode* nodeA, stuNode* nodeB)
+//{
+//    nodeA->prev->next = nodeB;
+//    if (nodeB->next != nullptr) {
+//        nodeB->next->prev = nodeA;
+//    }
+//    nodeA->next->prev = nodeB;
+//    nodeB->prev->next = nodeA;
+//    nodeB->prev = nodeA->prev;
+//    nodeA->next = nodeB->next;
+//    nodeB->next = nodeA->next;
+//    nodeA->prev = nodeB->prev;
+//}
+
+void SIMS::bubble(stuNode* nodeA, int n)
+{
+    stuNode* nodeC;
+    for (int i = 0; i < n - 1; i++) {
+        nodeC = nodeA->next->next;
+        if (nodeA->student.score > nodeA->next->student.score) {
+            swap(nodeA, nodeA->next);
+        }
+        if (nodeC != nullptr) {
+            nodeA = nodeC->prev;
+        } else {
+            break;
+        }
+    }
+}
+
 void SIMS::scoreranking()
 {
-    stuNode* ptr = headNode->next;
-    for (int i = 0; i < listSize -1; i++) {
-        stuNode* thePtr = ptr;
-        if (thePtr->student.score > thePtr->next->student.score) {
-            int t = indexOf(thePtr->student);
-            insert(t+2,thePtr->student);          
-            erase(t);
-        } 
+    stuNode* theNode = headNode->next;
+    stuNode* nodeC;
+    for (int i = 0; i < listSize - 1; i++) {
+        nodeC = theNode->next->next;
+        bubble(theNode, listSize - i);
+        if (nodeC != nullptr) {
+            theNode = nodeC->prev;
+        } else {
+            break;
+        }
     }
-    ptr = ptr->next;
 }
 
 int SIMS::searchScore(int Score)

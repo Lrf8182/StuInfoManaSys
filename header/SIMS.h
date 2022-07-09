@@ -4,6 +4,7 @@
 class SIMS
 {
 public:
+    void bubble(stuNode* nodeA, int n);
     friend std::ostream& operator<<(std::ostream& out, const SIMS& theSIMS);
     //Constructor
     //@
@@ -28,7 +29,8 @@ public:
     int searchID(int ID);
     int searchScore(int Score);
     void show(int scoreMin, int scoreMax);
-    void scoreranking(); 
+    void swap(stuNode* nodeA, stuNode* nodeB);
+    void scoreranking();
 
 private:
     stuNode* headNode;
