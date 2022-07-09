@@ -3,12 +3,11 @@
 
 class SIMS
 {
-    
 public:
     friend std::ostream& operator<<(std::ostream& out, const SIMS& theSIMS);
     //Constructor
     //@
-   
+
     SIMS(int n = 0);
     //@
     //Copy constructor
@@ -24,12 +23,11 @@ public:
     void insert(const STU& theStudent);
     void insert(int theIndex, const STU& theStudent);
     void push_back(const STU& theStudent);
-    void erase();
     void erase(const int theIndex);
     int search(int ID);
-    
+
 private:
     stuNode* headNode;
+    int rank[1000];
     int listSize;
 };
-

@@ -10,11 +10,9 @@ SIMS stuInfo;
 
 int main()
 {
-    //while (1) {
-    //    welcome();
-    //    system("cls");
-    //}
-
+    while (welcome()) {
+        system("cls");
+    };
     colorfulOutput("i", 0, 7);
     colorfulOutput(" ", 1, 6);
     colorfulOutput("love", 3, 5);

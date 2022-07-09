@@ -2,7 +2,6 @@
 #include<string>
 #include<iostream>
 
-
 SIMS::SIMS(int n) :listSize(n)
 {
     headNode = new stuNode;
@@ -72,7 +71,19 @@ void SIMS::insert(int theIndex, const STU& theStudent)
 
 void SIMS::push_back(const STU& theStudent)
 {
-    insert(listSize, theStudent);
+    stuNode* ptr = headNode;
+    for (int i = 0; i < listSize; i++) {
+        if ((theStudent.id < ptr->next->student.id)) {
+            break;
+        }
+        ptr = ptr->next;
+    }
+    stuNode* thePtr = new stuNode(theStudent, ptr, ptr->next);
+    ptr->next = thePtr;
+    if (thePtr->next != nullptr) {
+        thePtr->next->prev = thePtr;
+    }
+    listSize++;
 }
 
 void SIMS::erase(int theIndex)
