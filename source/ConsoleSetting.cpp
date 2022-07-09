@@ -7,42 +7,42 @@
 
 /**
  * @brief Change foregound and background color in cmd window for output.
- * @param foregroundColor <7> white(DEFAULT), <0> black, <1> blue,
-                          <2> green, <3> red, <4> cyan, <5> pink, <6> yellow.
- * @param backgroundColor <0> black(DEFAULT), <1> blue, <2> green, <3> red,
-                          <4> cyan, <5> pink, <6> yellow, <7> white.
+ * @param foregroundColor     <7> white(DEFAULT), <0> black, <1> blue,
+                              <2> green, <3> red, <4> cyan, <5> pink, <6> yellow.
+ * @param backgroundColor     <0> black(DEFAULT), <1> blue, <2> green, <3> red,
+                              <4> cyan, <5> pink, <6> yellow, <7> white.
  * @param foregroundIntensity <true>(DEFAULT), <false>.
  * @param backgroundIntensity <false>(DEFAULT), <true>.
 */
 void setOutputColor(int foregroundColor, int backgroundColor,
                     bool foregroundIntensity, bool backgroundIntensity)
 {
-    unsigned int fgOption = 0x0000, bgOption = 0x0000;
+    unsigned int option = 0x0000;
     // Change foreground intensity.
-    if (foregroundIntensity) { fgOption |= FOREGROUND_INTENSITY; }
+    if (foregroundIntensity) { option |= FOREGROUND_INTENSITY; }
     // Change backgound intensity.
-    if (backgroundIntensity) { bgOption |= BACKGROUND_INTENSITY; }
+    if (backgroundIntensity) { option |= BACKGROUND_INTENSITY; }
     // Change foregound color.
     switch (foregroundColor) {
     case 0: // black
     { break; }
     case 1: // blue
-    { fgOption |= FOREGROUND_BLUE; break; }
+    { option |= FOREGROUND_BLUE; break; }
     case 2: // green
-    { fgOption |= FOREGROUND_GREEN; break; }
+    { option |= FOREGROUND_GREEN; break; }
     case 3: // red
-    { fgOption |= FOREGROUND_RED; break; }
+    { option |= FOREGROUND_RED; break; }
     case 4: // cyan
-    { fgOption |= (FOREGROUND_BLUE | FOREGROUND_GREEN); break; }
+    { option |= (FOREGROUND_BLUE | FOREGROUND_GREEN); break; }
     case 5: // pink
-    { fgOption |= (FOREGROUND_BLUE | FOREGROUND_RED); break; }
+    { option |= (FOREGROUND_BLUE | FOREGROUND_RED); break; }
     case 6: // yellow
-    { fgOption |= (FOREGROUND_GREEN | FOREGROUND_RED); break; }
+    { option |= (FOREGROUND_GREEN | FOREGROUND_RED); break; }
     case 7: // white
-    { fgOption |= (FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); break; }
+    { option |= (FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); break; }
     default: // error, change to white
     {
-        fgOption |= (FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+        option |= (FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
         printf("[Error Parameter Value] Foregound color change to white.\n");
         break;
     }
@@ -52,27 +52,53 @@ void setOutputColor(int foregroundColor, int backgroundColor,
     case 0: // black
     { break; }
     case 1: // blue
-    { bgOption |= BACKGROUND_BLUE; break; }
+    { option |= BACKGROUND_BLUE; break; }
     case 2: // green
-    { bgOption |= BACKGROUND_GREEN; break; }
+    { option |= BACKGROUND_GREEN; break; }
     case 3: // red
-    { bgOption |= BACKGROUND_RED; break; }
+    { option |= BACKGROUND_RED; break; }
     case 4: // cyan
-    { bgOption |= (BACKGROUND_BLUE | BACKGROUND_GREEN); break; }
+    { option |= (BACKGROUND_BLUE | BACKGROUND_GREEN); break; }
     case 5: // pink
-    { bgOption |= (BACKGROUND_BLUE | BACKGROUND_RED); break; }
+    { option |= (BACKGROUND_BLUE | BACKGROUND_RED); break; }
     case 6: // yellow
-    { bgOption |= (BACKGROUND_GREEN | BACKGROUND_RED); break; }
+    { option |= (BACKGROUND_GREEN | BACKGROUND_RED); break; }
     case 7: // white
-    { bgOption |= (BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED); break; }
+    { option |= (BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED); break; }
     default: // error, change to black
     {
-        // Make sure foregound color is not black.
-        if (!(fgOption & 0x0111)) { fgOption |= (FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); }
+        // Make sure foreground color is not black.
+        if (!(option & 0x0111)) { option |= (FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); }
         printf("[Error Parameter Value] Backgound color change to black.\n");
         break;
     }
     }
     // Actual step to change color.
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), fgOption | bgOption);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), option | option);
+}
+
+/**
+ * @brief Set the size of console window.
+ * @param line Number of lines of the window.   e.g. <"20">
+ * @param colu Number of columns of the window. e.g. <"15">
+ * @param fix  <false>(DEFAULT) Whether to fix the size of the window.
+*/
+void windowSize(const std::string& line, const std::string& colu, bool fix)
+{
+    std::string instruction = "mode con cols=" + colu + " lines=" + line;
+    // Change the size of console window.
+    system(instruction.c_str());
+    if (fix) {
+        // Fix the size of cmd window.
+        // @{
+        HWND hWnd; // The Handle of console window.
+        RECT rect; // The square of console window.
+        hWnd = GetConsoleWindow();
+        GetWindowRect(hWnd, &rect);
+        // Change the style of console window.
+        SetWindowLongPtr(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX);
+        // The change involves changes of border, so SetWindowPos must be invoked, otherwise invalid.
+        SetWindowPos(hWnd, NULL, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, NULL);
+        // @}
+    }
 }

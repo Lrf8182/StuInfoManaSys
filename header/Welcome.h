@@ -9,4 +9,4 @@
  *         -4 Search for a student.
 */
 int welcome();
-int option(int);
+void option(int);

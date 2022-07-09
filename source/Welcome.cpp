@@ -32,7 +32,10 @@ int welcome()
     int op;
     std::cin >> op;
     std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-    return option(op);
+    // If 'op' is 0, return 0 to end program.
+    if (!op) return 0;
+    option(op);
+    return 1;
 }
 
 /**
@@ -43,13 +46,11 @@ int welcome()
  *           -3 Delete a student.
  *           -4 Search for a student.
 */
-int option(int op)
+void option(int op)
 {
     switch (op) {
     case 0:
-    {
-        return 0;
-    }
+    { break; }
     case 1:
     {
         std::cout << stuInfo << std::endl;
@@ -106,6 +107,5 @@ int option(int op)
         std::cin.get();
         break;
     }
-    return 1;
     };
 }
