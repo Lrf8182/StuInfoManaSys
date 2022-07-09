@@ -28,6 +28,6 @@ public:
 
 private:
     stuNode* headNode;
-    int rank[1000];
+    // int rank[1000];
     int listSize;
 };

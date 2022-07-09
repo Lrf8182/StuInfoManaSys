@@ -13,8 +13,8 @@
  * @param foregroundIntensity <true>(DEFAULT), <false>.
  * @param backgroundIntensity <false>(DEFAULT), <true>.
 */
-inline void setOutputColor(int foregroundColor = 7, int backgroundColor = 0,
-                           bool foregroundIntensity = true, bool backgroundIntensity = false);
+void setOutputColor(int foregroundColor = 7, int backgroundColor = 0,
+                    bool foregroundIntensity = true, bool backgroundIntensity = false);
 
 /**
  * @brief Output text in different colors, and re-set the color to default after ouputing.

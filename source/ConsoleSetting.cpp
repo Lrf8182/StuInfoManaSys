@@ -14,8 +14,8 @@
  * @param foregroundIntensity <true>(DEFAULT), <false>.
  * @param backgroundIntensity <false>(DEFAULT), <true>.
 */
-inline void setOutputColor(int foregroundColor, int backgroundColor,
-                           bool foregroundIntensity, bool backgroundIntensity)
+void setOutputColor(int foregroundColor, int backgroundColor,
+                    bool foregroundIntensity, bool backgroundIntensity)
 {
     unsigned int option = 0x0000;
     // Change foreground intensity.
@@ -83,7 +83,7 @@ inline void setOutputColor(int foregroundColor, int backgroundColor,
  * @param colu Number of columns of the window. e.g. <"15">
  * @param fix  <false>(DEFAULT) Whether to fix the size of the window.
 */
-void windowSize(const std::string& line, const std::string& colu, bool fix = false)
+void windowSize(const std::string& line, const std::string& colu, bool fix)
 {
     std::string instruction = "mode con cols=" + colu + " lines=" + line;
     // Change the size of console window.
