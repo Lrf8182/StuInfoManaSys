@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\.main.cpp" />
+    <ClCompile Include="source\Color.cpp" />
     <ClCompile Include="source\ConsoleSetting.cpp" />
     <ClCompile Include="source\SIMS.cpp" />
     <ClCompile Include="source\Welcome.cpp" />

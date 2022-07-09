@@ -16,14 +16,17 @@ SIMS::~SIMS()
     }
 }
 
-bool SIMS::empty() const
-{
-    return !listSize;
-}
 
 int SIMS::size()
 {
     return listSize;
+}
+
+
+
+bool SIMS::empty() const
+{
+    return !listSize;
 }
 
 STU& SIMS::get(int theIndex) const
@@ -51,10 +54,12 @@ int SIMS::indexOf(const STU& theStudent) const
     }
     return -1;
 }
+
 void SIMS::insert(const STU& theStudent)
 {
     insert(0, theStudent);
 }
+
 void SIMS::insert(int theIndex, const STU& theStudent)
 {
     stuNode* ptr = headNode;
@@ -86,6 +91,7 @@ void SIMS::push_back(const STU& theStudent)
     listSize++;
 }
 
+
 void SIMS::erase(int theIndex)
 {
     stuNode* currentNode = headNode;
@@ -102,7 +108,7 @@ void SIMS::erase(int theIndex)
     listSize--;
 }
 
-int SIMS::search(int ID)
+int SIMS::searchID(int ID)
 {
     stuNode* currentNode = headNode->next;
     for (int theIndex = 0; theIndex < listSize; theIndex++) {
@@ -112,6 +118,45 @@ int SIMS::search(int ID)
         currentNode = currentNode->next;
     }
     return -1;
+}
+
+void SIMS::scoreranking()
+{
+    stuNode* ptr = headNode->next;
+    for (int i = 0; i < listSize -1; i++) {
+        stuNode* thePtr = ptr;
+        if (thePtr->student.score > thePtr->next->student.score) {
+            int t = indexOf(thePtr->student);
+            insert(t+2,thePtr->student);          
+            erase(t);
+        } 
+    }
+    ptr = ptr->next;
+}
+
+int SIMS::searchScore(int Score)
+{
+    stuNode* currentNode = headNode->next;
+    for (int theIndex = 0; theIndex < listSize; theIndex++) {
+        if (currentNode->student.id == Score) {
+            return theIndex;
+        }
+        currentNode = currentNode->next;
+    }
+    return -1;
+}
+
+void SIMS::show(int scoreMin, int scoreMax)
+{
+    for (int i = 0; i < listSize; i++) {
+        if (scoreMin <= get(i).score <= scoreMax) {
+            std::cout << "name: " << get(i).name << '\t'
+                << "id: " << get(i).id << '\t'
+                << "score: " << get(i).score << std::endl;
+            std::cin.get();
+        }
+    }
+    std::cin.get();
 }
 
 std::ostream& operator<<(std::ostream& out, const SIMS& theSIMS)

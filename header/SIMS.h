@@ -14,6 +14,7 @@ public:
     SIMS(const SIMS& theSIMS) : headNode(theSIMS.headNode), listSize(theSIMS.listSize) {}
     //Distructor
     ~SIMS();
+
 public:
     int size();
     bool empty() const;
@@ -24,7 +25,10 @@ public:
     void insert(int theIndex, const STU& theStudent);
     void push_back(const STU& theStudent);
     void erase(const int theIndex);
-    int search(int ID);
+    int searchID(int ID);
+    int searchScore(int Score);
+    void show(int scoreMin, int scoreMax);
+    void scoreranking(); 
 
 private:
     stuNode* headNode;
