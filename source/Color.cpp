@@ -25,9 +25,9 @@ void COLOR_PRINT(std::string str, int front_color, int back_color)
 void colorprint(const char* s)
 {
     srand((int) time(0));
-    int front = rand() % 15;
+    int front = rand() % 8;
     srand((int) time(0));
-    int back = rand() % 15;
+    int back = rand() % 8;
     if (front == back) {
         front++;
     }

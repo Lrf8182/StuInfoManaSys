@@ -16,7 +16,7 @@ SIMS::~SIMS()
     }
 }
 
-int SIMS::size()
+size_t SIMS::size()
 {
     return listSize;
 }

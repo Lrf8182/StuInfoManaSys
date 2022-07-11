@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "../header/ConsoleSetting.h"
+#include<ctime>
 
 /**
  * @brief Change foregound and background color in cmd window for output.
@@ -14,9 +15,9 @@
  * @param foregroundIntensity <true>(DEFAULT), <false>.
  * @param backgroundIntensity <false>(DEFAULT), <true>.
 */
-void setOutputColor(int foregroundColor, int backgroundColor,
-                    bool foregroundIntensity, bool backgroundIntensity)
+void setOutputColor(int foregroundColor,int backgroundColor,bool foregroundIntensity, bool backgroundIntensity)
 {
+
     unsigned int option = 0x0000;
     // Change foreground intensity.
     if (foregroundIntensity) { option |= FOREGROUND_INTENSITY; }

@@ -17,7 +17,7 @@ public:
     ~SIMS();
 
 public:
-    int size();
+    size_t size();
     bool empty() const;
     STU& get(int theIndex) const;
     STU& operator[](int theIndex) const;

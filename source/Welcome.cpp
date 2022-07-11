@@ -4,6 +4,7 @@
 #include"../header/Color.h"
 #include<windows.h>
 #include"../header/ConsoleSetting.h"
+#include <fstream>
 
 extern SIMS stuInfo;
 
@@ -18,7 +19,7 @@ extern SIMS stuInfo;
 */
 int welcome()
 {
-    colorprint("This is a student information management system.\n");
+    colorfulOutput("This is a student information management system.\n",2,3);
     //Sleep(1000);
     colorprint("Enter 0 to quit this system.\n");
     //Sleep(1000);
@@ -117,22 +118,33 @@ void option(int op)
     }
     case 5:
     {
-        // int min, max;
-        // colorprint("Please enter the minimum and maximum scores as the score range.");
-         //std::cout << std::endl;
-         //std::cin >> min >> max;
-         //if (min > max) {
-            // colorprint("Input error! Please enter again.");
-             //colorprint("Press enter to continue.\n");
-             //std::cin.get();
-             //std::cin >> min >> max;
-             //std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-         //}
         stuInfo.scoreranking();
-
-        //stuInfo.show(min, max);
-        //colorprint("Press enter to continue.\n");
-        //std::cin.get();
+        break;
+    }
+    case 6:
+    {
+        std::string fileName;
+        std::ofstream outputFile;
+        outputFile << "Please enter output file name.";
+        getline(std::cin, fileName);
+        outputFile.open(fileName);
+        size_t size = stuInfo.size();
+        for (size_t i = 0; i < size; i++) {
+            outputFile << "name: " << stuInfo[i].name
+                << "\t" << "id: " << stuInfo[i].id << "\t"
+                << "score: " << stuInfo[i].score << "\n";
+        }
+        break;
+    }
+    case 7:
+    {
+        std::ifstream inputFile;
+        inputFile.open("aaa.txt");
+        std::string str;
+        getline(inputFile, str);
+        std::cout << str;
+        inputFile.close();
+        std::cin.get();
     }
     };
 }
