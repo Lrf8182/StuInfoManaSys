@@ -116,31 +116,60 @@ int SIMS::searchID(int ID)
     return -1;
 }
 
-void SIMS::swap(stuNode* nodeA, stuNode* nodeB)
-{
-    // stuNode* nodeA = headNode->next;
-    int t = indexOf(nodeA->student);
-    if (t + 2 < listSize) {
-        insert(t + 2, nodeA->student);
-    } else {
-        insert(listSize, nodeA->student);
-    }
-    erase(t);
-}
-
 //void SIMS::swap(stuNode* nodeA, stuNode* nodeB)
 //{
-//    nodeA->prev->next = nodeB;
-//    if (nodeB->next != nullptr) {
-//        nodeB->next->prev = nodeA;
+//    // stuNode* nodeA = headNode->next;
+//    int t = indexOf(nodeA->student);
+//    if (t + 2 < listSize) {
+//        insert(t + 2, nodeA->student);
+//    } else {
+//        insert(listSize, nodeA->student);
 //    }
-//    nodeA->next->prev = nodeB;
-//    nodeB->prev->next = nodeA;
-//    nodeB->prev = nodeA->prev;
-//    nodeA->next = nodeB->next;
-//    nodeB->next = nodeA->next;
-//    nodeA->prev = nodeB->prev;
+//    erase(t);
 //}
+
+void SIMS::swap(stuNode* left, stuNode* right)
+{
+    stuNode* temp;
+    if (right->next == NULL) {
+        if (left->next == right) {
+            right->next = left;
+            right->prev = left->prev;
+            left->next = nullptr;
+            left->prev->next = right;
+            left->prev = right;
+        } else {
+            right->prev->next = left;
+            right->next = left;
+            temp = right->prev;
+            right->prev = left->prev;
+            left->prev->next = right;
+            left->next->prev = right;
+            left->next = nullptr;
+            left->prev = temp;
+        }
+    } else {
+        if (left->next == right) {
+            right->next->prev = left;
+            right->prev = left->prev;
+            temp = right->next;
+            right->next = left;
+            left->prev = right;
+            left->next = temp;
+        } else {
+            right->next->prev = left;
+            right->prev->next = left;
+            temp = right->next;
+            right->next = left->next;
+            left->next = temp;
+            temp = right->prev;
+            right->prev = left->prev;
+            left->prev = temp;
+            left->next->prev = right;
+            left->prev->next = right;
+        }
+    }
+}
 
 void SIMS::bubble(stuNode* nodeA, int n)
 {
@@ -158,17 +187,31 @@ void SIMS::bubble(stuNode* nodeA, int n)
     }
 }
 
+//void SIMS::scoreranking()
+//{
+//    stuNode* theNode = headNode->next;
+//    stuNode* nodeC;
+//    for (int i = 0; i < listSize - 1; i++) {
+//        nodeC = theNode->next->next;
+//        bubble(theNode, listSize - i);
+//        if (nodeC != nullptr) {
+//            theNode = nodeC->prev;
+//        } else {
+//            break;
+//        }
+//    }
+//}
+
 void SIMS::scoreranking()
 {
-    stuNode* theNode = headNode->next;
-    stuNode* nodeC;
-    for (int i = 0; i < listSize - 1; i++) {
-        nodeC = theNode->next->next;
-        bubble(theNode, listSize - i);
-        if (nodeC != nullptr) {
-            theNode = nodeC->prev;
-        } else {
-            break;
+    int i, j;
+    for (i = 0; i < listSize - 1; i++) {
+        stuNode* left = get(0);
+        for (j = 0; j < listSize - 1- i; j++) {
+            if (left->student.score > left->next->student.score) {
+                swap(left, left->next);
+            }
+            
         }
     }
 }

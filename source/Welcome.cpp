@@ -5,6 +5,7 @@
 #include<windows.h>
 #include"../header/ConsoleSetting.h"
 #include <fstream>
+#include"../header/Color.h"
 
 extern SIMS stuInfo;
 
@@ -16,10 +17,12 @@ extern SIMS stuInfo;
  *         -3 Delete a student.
  *         -4 Search for a student.
  *         -5 Print specified students by score ranking.
+ *         -6 Output information to a file.
+ *         -7 Input information from a file.
 */
 int welcome()
 {
-    colorfulOutput("This is a student information management system.\n",2,3);
+    colorprint("This is a student information management system.\n");
     //Sleep(1000);
     colorprint("Enter 0 to quit this system.\n");
     //Sleep(1000);
@@ -32,6 +35,10 @@ int welcome()
     colorprint("Enter 4 to search for a student.\n");
     //Sleep(1000);
     colorprint("Enter 5 to print specified students by score ranking.\n");
+    //Sleep(1000);
+    colorprint("Enter 6 to output information to a file.\n");
+    //Sleep(1000);
+    colorprint("Enter 7 to input information from a file.\n");
 
     int op;
     std::cin >> op;
@@ -49,6 +56,8 @@ int welcome()
  *           -3 Delete a student.
  *           -4 Search for a student.
  *           -5 Print specified students by score ranking.
+ *           -6 Output information to a file.
+ *           -7 Input information from a file.
 */
 void option(int op)
 {
@@ -119,13 +128,22 @@ void option(int op)
     case 5:
     {
         stuInfo.scoreranking();
+        size_t size = stuInfo.size();
+        for (size_t i = 0; i < size; i++) {
+           std::cout<< "name: " << stuInfo[i].name
+                << "\t" << "id: " << stuInfo[i].id << "\t"
+                << "score: " << stuInfo[i].score << "\n";
+        }
+        std::cout << "Please enter two scores as the sorting range.";
+        
+        std::cin.get();
         break;
     }
     case 6:
     {
         std::string fileName;
         std::ofstream outputFile;
-        outputFile << "Please enter output file name.";
+        std::cout << "Please enter output file name.\n";
         getline(std::cin, fileName);
         outputFile.open(fileName);
         size_t size = stuInfo.size();
@@ -139,12 +157,23 @@ void option(int op)
     case 7:
     {
         std::ifstream inputFile;
-        inputFile.open("aaa.txt");
-        std::string str;
-        getline(inputFile, str);
-        std::cout << str;
+        std::string fileName;
+        std::cout << "Please enter input file name.";
+        getline(std::cin, fileName);
+        inputFile.open(fileName);
+        while (!inputFile.eof()) {
+            std::string name, rubbishBin;
+            int ID, score;
+            while (inputFile >> rubbishBin && inputFile >> name
+                   && inputFile >> rubbishBin && inputFile >> ID
+                   && inputFile >> rubbishBin && inputFile >> score) {
+                STU student(name, ID, score);
+                stuInfo.push_back(student);
+            }
+        }
         inputFile.close();
         std::cin.get();
+        break;
     }
     };
 }

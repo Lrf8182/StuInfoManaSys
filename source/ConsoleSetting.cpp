@@ -73,6 +73,7 @@ void setOutputColor(int foregroundColor,int backgroundColor,bool foregroundInten
         printf("[Error Parameter Value] Backgound color change to black.\n");
         break;
     }
+    
     }
     // Actual step to change color.
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), option | option);
